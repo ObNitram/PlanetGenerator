@@ -22,7 +22,7 @@ MonoBehaviour:
         strength: 0.16
         numLayers: 4
         baseRoughness: 1.15
-        roughness: 2.2
+        roughness: 2.12
         persistence: 0.5
         centre: {x: 0, y: 0, z: 0}
         minValue: 1.049
@@ -51,7 +51,7 @@ MonoBehaviour:
         strength: 1.2
         numLayers: 4
         baseRoughness: 1.59
-        roughness: 3.3
+        roughness: 5
         persistence: 0.5
         centre: {x: 0, y: 0, z: 0}
         minValue: 0.37
