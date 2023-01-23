@@ -4,6 +4,13 @@ namespace PlanetGenerator
 {
     public class Planet : MonoBehaviour {
 
+        // Start is called before the first frame update
+        private void Start()
+        {
+            GeneratePlanet();
+        }
+        
+        
         [Range(2,256)]
         public int resolution = 10;
         public bool autoUpdate = true;
