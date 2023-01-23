@@ -19,7 +19,7 @@ namespace PlanetGenerator
             this.settings = settings;
             if (texture == null || texture.height != settings.biomeColourSettings.biomes.Length)
             {
-                texture = new Texture2D(textureResolution, settings.biomeColourSettings.biomes.Length,
+                texture = new Texture2D(textureResolution * 2, settings.biomeColourSettings.biomes.Length,
                     TextureFormat.RGBA32, false)
                 {
                     wrapMode = TextureWrapMode.Clamp
@@ -62,9 +62,18 @@ namespace PlanetGenerator
 
             foreach (var biome in settings.biomeColourSettings.biomes)
             {
-                for (int i = 0; i < textureResolution; i++)
+                for (int i = 0; i < textureResolution * 2; i++)
                 {
-                    Color gradientColour = biome.gradient.Evaluate(i / (textureResolution - 1f));
+                    Color gradientColour;
+                    if (i < textureResolution)
+                    {
+                        gradientColour = settings.oceanColour.Evaluate(i / (textureResolution - 1f));
+                    }
+                    else
+                    {
+                        gradientColour = biome.gradient.Evaluate((i-textureResolution) / (textureResolution - 1f));
+                    }
+
                     Color tintColour = biome.tint;
                     colours[colourIndex] = gradientColour * (1 - biome.tintPercent) + tintColour * biome.tintPercent;
                     colourIndex++;
