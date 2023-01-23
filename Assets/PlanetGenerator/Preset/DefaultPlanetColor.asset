@@ -17,19 +17,19 @@ MonoBehaviour:
     biomes:
     - gradient:
         serializedVersion: 2
-        key0: {r: 0.26713246, g: 0.6509434, b: 0.27833858, a: 1}
-        key1: {r: 0.09344962, g: 0.5660378, b: 0.10974574, a: 1}
-        key2: {r: 0.7137255, g: 0.48508286, b: 0.4, a: 0}
-        key3: {r: 0.5, g: 0.33838132, b: 0.2806604, a: 0}
-        key4: {r: 0.509434, g: 0.5006958, b: 0.49741903, a: 0}
+        key0: {r: 0.7137255, g: 0.48508286, b: 0.4, a: 1}
+        key1: {r: 0.5, g: 0.33838132, b: 0.2806604, a: 1}
+        key2: {r: 0.509434, g: 0.5006958, b: 0.49741903, a: 0}
+        key3: {r: 1, g: 1, b: 1, a: 0}
+        key4: {r: 1, g: 1, b: 1, a: 0}
         key5: {r: 1, g: 1, b: 1, a: 0}
         key6: {r: 1, g: 1, b: 1, a: 0}
         key7: {r: 1, g: 1, b: 1, a: 0}
-        ctime0: 4224
-        ctime1: 9855
-        ctime2: 17316
-        ctime3: 33788
-        ctime4: 55258
+        ctime0: 1478
+        ctime1: 19569
+        ctime2: 39208
+        ctime3: 65535
+        ctime4: 65535
         ctime5: 65535
         ctime6: 65535
         ctime7: 65535
@@ -42,11 +42,11 @@ MonoBehaviour:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_NumColorKeys: 6
+        m_NumColorKeys: 4
         m_NumAlphaKeys: 2
-      tint: {r: 0, g: 0, b: 0, a: 1}
+      tint: {r: 1, g: 1, b: 1, a: 1}
       startHeight: 0
-      tintPercent: 0
+      tintPercent: 0.791
     - gradient:
         serializedVersion: 2
         key0: {r: 0.26713246, g: 0.6509434, b: 0.27833858, a: 1}
@@ -77,7 +77,7 @@ MonoBehaviour:
         m_NumColorKeys: 6
         m_NumAlphaKeys: 2
       tint: {r: 1, g: 1, b: 1, a: 1}
-      startHeight: 0
+      startHeight: 0.04
       tintPercent: 0
     - gradient:
         serializedVersion: 2
@@ -109,15 +109,15 @@ MonoBehaviour:
         m_NumColorKeys: 6
         m_NumAlphaKeys: 2
       tint: {r: 1, g: 1, b: 1, a: 1}
-      startHeight: 0
-      tintPercent: 0
+      startHeight: 0.952
+      tintPercent: 0.9
     noise:
       filterType: 0
       simpleNoiseSettings:
         strength: 1.9
         numLayers: 3
         baseRoughness: 0.89
-        roughness: 3.12
+        roughness: 2.79
         persistence: 1
         centre: {x: 0, y: 0, z: 0}
         minValue: 0.468
@@ -138,7 +138,7 @@ MonoBehaviour:
     key0: {r: 0.016019935, g: 0.0473534, b: 0.6792453, a: 1}
     key1: {r: 0, g: 0.03676009, b: 1, a: 1}
     key2: {r: 0.039733235, g: 0.28442293, b: 0.9643314, a: 0}
-    key3: {r: 0.14509802, g: 0.9411765, b: 0.86974525, a: 0}
+    key3: {r: 0.14509802, g: 0.73779297, b: 0.9411765, a: 0}
     key4: {r: 0.446696, g: 0.42973477, b: 0.8207547, a: 0}
     key5: {r: 0.990566, g: 0.65616626, b: 0.3224012, a: 0}
     key6: {r: 0.990566, g: 0.65616626, b: 0.3224012, a: 0}
