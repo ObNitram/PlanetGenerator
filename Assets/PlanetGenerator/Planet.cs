@@ -23,24 +23,27 @@ namespace PlanetGenerator
         [HideInInspector]
         public bool colourSettingsFoldout;
 
-        ShapeGenerator shapeGenerator = new ShapeGenerator();
-        ColourGenerator colourGenerator = new ColourGenerator();
+        private readonly ShapeGenerator _shapeGenerator = new ShapeGenerator();
+        private readonly ColourGenerator _colourGenerator = new ColourGenerator();
 
-        [SerializeField, HideInInspector]
-        MeshFilter[] meshFilters;
-        TerrainFace[] terrainFaces;
-     
+        [SerializeField, HideInInspector] 
+        private MeshFilter[] meshFilters;
+
+        private TerrainFace[] _terrainFaces;
+
+        public int seed;
+        
 
         void Initialize()
         {
-            shapeGenerator.UpdateSettings(shapeSettings);
-            colourGenerator.UpdateSettings(colourSettings);
+            _shapeGenerator.UpdateSettings(shapeSettings, seed);
+            _colourGenerator.UpdateSettings(colourSettings, seed);
             
             if (meshFilters == null || meshFilters.Length == 0)
             {
                 meshFilters = new MeshFilter[6];
             }
-            terrainFaces = new TerrainFace[6];
+            _terrainFaces = new TerrainFace[6];
 
             Vector3[] directions = { Vector3.up, Vector3.down, Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
 
@@ -57,7 +60,7 @@ namespace PlanetGenerator
                 }
                 meshFilters[i].GetComponent<MeshRenderer>().sharedMaterial = colourSettings.planetMaterial;
                 
-                terrainFaces[i] = new TerrainFace(shapeGenerator, meshFilters[i].sharedMesh, resolution, directions[i]);
+                _terrainFaces[i] = new TerrainFace(_shapeGenerator, meshFilters[i].sharedMesh, resolution, directions[i]);
             }
         }
 
@@ -66,6 +69,12 @@ namespace PlanetGenerator
             Initialize();
             GenerateMesh();
             GenerateColours();
+        }
+
+        public void GeneratePlanet(string seedParameter)
+        {
+            this.seed = Animator.StringToHash(seedParameter);
+            GeneratePlanet();
         }
 
         public void OnShapeSettingsUpdated()
@@ -88,22 +97,22 @@ namespace PlanetGenerator
 
         void GenerateMesh()
         {
-            foreach (TerrainFace face in terrainFaces)
+            foreach (TerrainFace face in _terrainFaces)
             {
                 face.ConstructMesh();
             }
-            colourGenerator.UpdateElevation(shapeGenerator.elevationMinMax);
+            _colourGenerator.UpdateElevation(_shapeGenerator.elevationMinMax);
         }
 
         void GenerateColours()
         {
-           colourGenerator.UpdateColours();
+           _colourGenerator.UpdateColours();
 
            for (int i = 0; i < 6; i++)
            {
                if (meshFilters[i].gameObject.activeSelf)
                {
-                   terrainFaces[i].UpdateUVs(colourGenerator);
+                   _terrainFaces[i].UpdateUVs(_colourGenerator);
                }
            }
         }

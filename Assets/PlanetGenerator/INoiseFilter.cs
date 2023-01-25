@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface INoiseFilter
+namespace PlanetGenerator
 {
-    float Evaluate(Vector3 point);
+    public interface INoiseFilter
+    {
+        float Evaluate(Vector3 point);
+    }
 }

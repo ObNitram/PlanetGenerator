@@ -3,18 +3,17 @@
 namespace PlanetGenerator
 {
     public class ShapeGenerator {
-
-        ShapeSettings settings;
-        INoiseFilter[] noiseFilters;
+        private ShapeSettings _settings;
+        private INoiseFilter[] _noiseFilters;
         public MinMax elevationMinMax;
 
-        public void UpdateSettings(ShapeSettings settings)
+        public void UpdateSettings(ShapeSettings settings, int seed)
         {
-            this.settings = settings;
-            noiseFilters = new INoiseFilter[settings.noiseLayers.Length];
-            for (int i = 0; i < noiseFilters.Length; i++)
+            this._settings = settings;
+            _noiseFilters = new INoiseFilter[settings.noiseLayers.Length];
+            for (int i = 0; i < _noiseFilters.Length; i++)
             {
-                noiseFilters[i] = NoiseFilterFactory.CreateNoiseFilter(settings.noiseLayers[i].noiseSettings);
+                _noiseFilters[i] = NoiseFilterFactory.CreateNoiseFilter(settings.noiseLayers[i].noiseSettings, seed);
             }
 
             elevationMinMax = new MinMax();
@@ -25,21 +24,21 @@ namespace PlanetGenerator
             float firstLayerValue = 0;
             float elevation = 0;
 
-            if (noiseFilters.Length > 0)
+            if (_noiseFilters.Length > 0)
             {
-                firstLayerValue = noiseFilters[0].Evaluate(pointOnUnitSphere);
-                if (settings.noiseLayers[0].enabled)
+                firstLayerValue = _noiseFilters[0].Evaluate(pointOnUnitSphere);
+                if (_settings.noiseLayers[0].enabled)
                 {
                     elevation = firstLayerValue;
                 }
             }
 
-            for (int i = 1; i < noiseFilters.Length; i++)
+            for (int i = 1; i < _noiseFilters.Length; i++)
             {
-                if (settings.noiseLayers[i].enabled)
+                if (_settings.noiseLayers[i].enabled)
                 {
-                    float mask = (settings.noiseLayers[i].useFirstLayerAsMask) ? firstLayerValue : 1;
-                    elevation += noiseFilters[i].Evaluate(pointOnUnitSphere) * mask;
+                    float mask = (_settings.noiseLayers[i].useFirstLayerAsMask) ? firstLayerValue : 1;
+                    elevation += _noiseFilters[i].Evaluate(pointOnUnitSphere) * mask;
                 }
             }
             elevationMinMax.AddValue(elevation);
@@ -49,7 +48,7 @@ namespace PlanetGenerator
         public float GetScaledElevation(float unscaledElevation)
         {
             float elevation = Mathf.Max(0, unscaledElevation);
-            elevation = settings.planetRadius * (1 + elevation);
+            elevation = _settings.planetRadius * (1 + elevation);
             return elevation;
         }
         

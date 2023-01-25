@@ -4,35 +4,36 @@ namespace PlanetGenerator
 {
     public class RidgidNoiseFilter : INoiseFilter
     {
-        NoiseSettings.RidgidNoiseSettings settings;
-        Noise noise = new Noise();
+        private readonly NoiseSettings.RidgidNoiseSettings _settings;
+        private readonly Noise _noise;
 
-        public RidgidNoiseFilter(NoiseSettings.RidgidNoiseSettings settings)
+        public RidgidNoiseFilter(NoiseSettings.RidgidNoiseSettings settings, int seed)
         {
-            this.settings = settings;
+            this._settings = settings;
+            _noise = new Noise(seed);
         }
 
         public float Evaluate(Vector3 point)
         {
             float noiseValue = 0;
-            float frequency = settings.baseRoughness;
+            float frequency = _settings.baseRoughness;
             float amplitude = 1;
             float weight = 1;
 
-            for (int i = 0; i < settings.numLayers; i++)
+            for (int i = 0; i < _settings.numLayers; i++)
             {
-                float v = 1 - Mathf.Abs(noise.Evaluate(point * frequency + settings.centre));
+                float v = 1 - Mathf.Abs(_noise.Evaluate(point * frequency + _settings.centre));
                 v *= v;
                 v *= weight;
-                weight = Mathf.Clamp01(v * settings.weightMultiplier);
+                weight = Mathf.Clamp01(v * _settings.weightMultiplier);
 
                 noiseValue += v * amplitude;
-                frequency *= settings.roughness;
-                amplitude *= settings.persistence;
+                frequency *= _settings.roughness;
+                amplitude *= _settings.persistence;
             }
 
-            noiseValue = noiseValue - settings.minValue;
-            return noiseValue * settings.strength;
+            noiseValue = noiseValue - _settings.minValue;
+            return noiseValue * _settings.strength;
         }
     }
 }
